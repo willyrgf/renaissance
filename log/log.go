@@ -6,12 +6,22 @@ import (
 
 type Option func(*config)
 
-type logger struct {
-	provider logrus.Logger
+type Log interface {
+	Tracef(format string, args ...interface{})
+	Debugf(format string, args ...interface{})
+	Infof(format string, args ...interface{})
+	Warnf(format string, args ...interface{})
+	Errorf(format string, args ...interface{})
+	Fatalf(format string, args ...interface{})
+	Panicf(format string, args ...interface{})
 }
 
-type Log interface {
+type logger struct {
+	provider logrus.Logger
+	config   *config
 }
+
+var _ Log = (*logger)(nil)
 
 func (l *logger) setup(c *config) {
 	if *c.flags.trace {
@@ -24,6 +34,7 @@ func (l *logger) setup(c *config) {
 		logrus.Debug("init(): dev environment")
 	}
 
+	l.config = c
 }
 
 func new(opts ...Option) *logger {
