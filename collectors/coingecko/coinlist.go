@@ -21,19 +21,8 @@ const (
 
 func FetchCoinLists() (*CoinLists, error) {
 	const endpoint = "/coins/list"
-	// reqInfo := &reqInfo{
-	// 	endpoint: "/coins/list",
-	// 	params:   []param{{key: "include_platform", value: "true"}},
-	// }
 
-	// u, p, err := reqInfo.parse()
-	// if err != nil {
-	// 	return nil, err
-	// }
-
-	// var cls *CoinLists
-	cls := make(CoinLists, 0)
-
+	var cls CoinLists
 	err := requests.
 		URL(baseURL+endpoint).
 		Param("include_plataform", "true").

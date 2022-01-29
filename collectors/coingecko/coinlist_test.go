@@ -20,10 +20,10 @@ func TestFetchCoinLists(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			got, err := FetchCoinLists()
 
-			t.Logf("CoinLists=%+v; err=%+v", got, err)
-
 			require.NoError(t, err)
 			require.Equal(t, true, (len(*got) > tt.lengthGreaterThan))
+
+			t.Logf("len(CoinLists)=%+v; CoinLists[0]=%+v; err=%+v", len(*got), (*got)[0], err)
 		})
 	}
 }
